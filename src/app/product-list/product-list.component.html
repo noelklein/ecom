@@ -1,3 +1,5 @@
-<p>
-  product-list works!
-</p>
+<ul class="list-unstyled">
+  <li *ngFor="let product of products">
+    <app-product-thumbnail [product]="product"></app-product-thumbnail>
+  </li>
+</ul>
