@@ -1,11 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
 import { CategoryFilterComponent } from './category-filter/category-filter.component';
 import { HeaderComponent } from './header/header.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
+import { ProductsService } from './services/products.service';
 
 @NgModule({
   declarations: [
@@ -13,12 +15,10 @@ import { HeaderComponent } from './header/header.component';
     ProductListComponent,
     ProductThumbnailComponent,
     CategoryFilterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, HttpClientModule],
+  providers: [ProductsService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
