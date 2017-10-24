@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "ci": "npm run lint && npm run tests-with-coverage && npm run build && npm run e2e",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "tests-with-coverage": "ng test --watch=false --code-coverage",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
