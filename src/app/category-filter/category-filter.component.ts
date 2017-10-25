@@ -10,14 +10,22 @@ import { ProductsService } from '../services/products.service';
   styleUrls: ['./category-filter.component.css'],
 })
 export class CategoryFilterComponent {
-  @Output() filterChanged: EventEmitter<number>;
+  @Output() filterChanged: EventEmitter<number[]>;
   public categories: Observable<Category[]>;
+
+  private selectedCategories: Set<number>;
 
   constructor(productsService: ProductsService) {
     this.categories = productsService.getCategories();
+    this.selectedCategories = new Set();
   }
 
   public filterBy(categoryId) {
-    this.filterChanged.emit(categoryId);
+    if (this.selectedCategories.has(categoryId)) {
+      this.selectedCategories.delete(categoryId);
+    } else {
+      this.selectedCategories.add(categoryId);
+    }
+    this.filterChanged.emit(Array.from(this.selectedCategories));
   }
 }

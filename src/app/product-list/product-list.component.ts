@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input } from '@angular/core';
 
 import 'rxjs/add/operator/map';
 
 import { Product } from '../services/product';
-import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-product-list',
@@ -12,11 +10,5 @@ import { ProductsService } from '../services/products.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent {
-  public products: Observable<Product[]>;
-
-  constructor(productsService: ProductsService) {
-    this.products = productsService
-      .getProducts()
-      .map(response => response.results);
-  }
+  @Input() products: Product[];
 }
