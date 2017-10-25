@@ -10,6 +10,8 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   public getProducts(): Observable<SearchResult<Product>> {
-    return this.http.get<SearchResult<Product>>('http://34.212.24.152:8090/api/v1/products?sortColumn=name&pageSize=999&pageNumber=1');
+    return this.http.get<SearchResult<Product>>(
+      'http://localhost:3000/api/v1/products?sortColumn=name&pageSize=999&pageNumber=1&categories=1,2,3'
+    );
   }
 }
