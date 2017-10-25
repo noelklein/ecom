@@ -1,3 +1,11 @@
-<p>
-  checkout works!
-</p>
+
+<form [formGroup]="form">
+  <label>name:
+    <input type="text" formControlName="name">
+  </label>
+  <div *ngIf="form.get('name').invalid" class="alert alert-danger">name invalid</div>
+  <label>email:
+    <input type="text" formControlName="email">
+  </label>
+  <button (click)="submit()">Submit</button>
+</form>
