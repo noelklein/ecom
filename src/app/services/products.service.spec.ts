@@ -1,15 +1,59 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs/Observable';
+import { anyString, instance, mock, when } from 'ts-mockito';
 
+import 'rxjs/add/observable/of';
+
+import { Product } from './product';
 import { ProductsService } from './products.service';
+import { SearchResult } from './result';
 
-describe('ProductsService', () => {
+fdescribe('ProductsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductsService]
+      imports: [HttpClientTestingModule],
+      providers: [ProductsService],
     });
   });
 
-  it('should be created', inject([ProductsService], (service: ProductsService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([ProductsService], (service: ProductsService) => {
+      expect(service).toBeTruthy();
+    })
+  );
+
+  it('should return list of products', () => {
+    const mockResult: SearchResult<Product> = {
+      pageNumber: 1,
+      totalPages: 1,
+      totalRecords: 1,
+      results: [
+        {
+          name: 'test',
+          description: 'test',
+          price: 12.44,
+          productCategoryId: 1,
+          productId: 1,
+        },
+      ],
+    };
+
+    const mockHttpClient = mock(HttpClient);
+    when(mockHttpClient.get(anyString())).thenCall(() => Observable.of(mockResult));
+
+    // const httpClient = {
+    //   get() {
+    //     return Observable.of(mockResult);
+    //   },
+    // } as any;
+
+    const productsService = new ProductsService(instance(mockHttpClient));
+
+    const result = productsService.getProducts();
+
+    expect(result).toEqual(mockResult);
+  });
 });
