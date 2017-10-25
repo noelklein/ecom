@@ -14,4 +14,10 @@ export class ProductsService {
       'http://localhost:3000/api/v1/products?sortColumn=name&pageSize=999&pageNumber=1&categories=1,2,3'
     );
   }
+
+  public getProduct(productId: number): Observable<Product> {
+    return this.httpClient.get<Product>(
+      `http://localhost:3000/api/v1/products/${productId}`
+    );
+  }
 }

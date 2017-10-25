@@ -1,3 +1,4 @@
+import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,6 +9,19 @@ import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
 import { ProductsService } from './services/products.service';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+
+const routes: Route[] = [{
+  path: '',
+  component: ProductListComponent
+}, {
+  path: 'product/:productId',
+  component: ProductDetailsComponent
+}, {
+  path: 'checkout',
+  component: CheckoutComponent
+}]
 
 @NgModule({
   declarations: [
@@ -16,8 +30,10 @@ import { ProductsService } from './services/products.service';
     ProductThumbnailComponent,
     CategoryFilterComponent,
     HeaderComponent,
+    ProductDetailsComponent,
+    CheckoutComponent,
   ],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [ProductsService],
   bootstrap: [AppComponent],
 })
