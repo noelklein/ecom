@@ -33,7 +33,7 @@ fdescribe('ProductThumbnailComponent', () => {
 class TestHostComponent {
   public product: Product = {
     description: 'test',
-    name: 'asdf',
+    name: 'test',
     price: 12.33,
     productCategoryId: 1,
     productId: 2
