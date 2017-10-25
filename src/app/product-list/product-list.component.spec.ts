@@ -9,7 +9,7 @@ import { ProductsService } from '../services/products.service';
 import { SearchResult } from '../services/result';
 import { ProductListComponent } from './product-list.component';
 
-fdescribe('ProductListComponent', () => {
+describe('ProductListComponent', () => {
   let component: ProductListComponent;
   let fixture: ComponentFixture<ProductListComponent>;
   let mockSearchResult: SearchResult<Product>;
