@@ -1,5 +1,5 @@
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <label>name:
     <input type="text" formControlName="name">
   </label>
@@ -7,5 +7,5 @@
   <label>email:
     <input type="text" formControlName="email">
   </label>
-  <button (click)="submit()">Submit</button>
+  <button type="submit">Submit</button>
 </form>
