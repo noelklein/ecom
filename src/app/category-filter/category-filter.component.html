@@ -1,3 +1,5 @@
-<p>
-  category-filter works!
-</p>
+<ul class="list-unstyled">
+  <li *ngFor="let category of categories | async" (click)="filterBy(category.productCategoryId)">
+    {{category.name}}
+  </li>
+</ul>
