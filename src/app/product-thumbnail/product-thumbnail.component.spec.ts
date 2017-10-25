@@ -6,7 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductThumbnailComponent } from './product-thumbnail.component';
 
 fdescribe('ProductThumbnailComponent', () => {
-  let fixture: ComponentFixture<ProductThumbnailComponent>;
+  let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
