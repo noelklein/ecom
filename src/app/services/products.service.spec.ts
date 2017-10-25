@@ -25,7 +25,7 @@ fdescribe('ProductsService', () => {
     })
   );
 
-  it('should return list of products', () => {
+  it('should return list of products', async (done) => {
     const mockResult: SearchResult<Product> = {
       pageNumber: 1,
       totalPages: 1,
@@ -44,16 +44,12 @@ fdescribe('ProductsService', () => {
     const mockHttpClient = mock(HttpClient);
     when(mockHttpClient.get(anyString())).thenCall(() => Observable.of(mockResult));
 
-    // const httpClient = {
-    //   get() {
-    //     return Observable.of(mockResult);
-    //   },
-    // } as any;
-
     const productsService = new ProductsService(instance(mockHttpClient));
 
-    const result = productsService.getProducts();
+    const result = await productsService.getProducts().toPromise();
 
     expect(result).toEqual(mockResult);
+
+    done();
   });
 });
