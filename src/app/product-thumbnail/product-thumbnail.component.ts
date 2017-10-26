@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { CartService } from '../services/cart.service';
 import { Product } from '../services/product';
 
 @Component({
@@ -9,4 +10,10 @@ import { Product } from '../services/product';
 })
 export class ProductThumbnailComponent {
   @Input() product: Product;
+
+  constructor(private cartService: CartService) {}
+
+  public addToCart() {
+    this.cartService.add(this.product);
+  }
 }
