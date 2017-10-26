@@ -1,0 +1,11 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>name:
+    <input type="text" formControlName="name">
+  </label>
+  <div *ngIf="form.get('name').invalid" class="alert alert-danger">name invalid</div>
+  <label>email:
+    <input type="text" formControlName="email">
+  </label>
+  <button type="submit">Submit</button>
+</form>

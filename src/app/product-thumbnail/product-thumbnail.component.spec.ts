@@ -5,13 +5,13 @@ import { By } from '@angular/platform-browser';
 import { Product } from '../services/product';
 import { ProductThumbnailComponent } from './product-thumbnail.component';
 
-describe('ProductThumbnailComponent', () => {
-  let fixture: ComponentFixture<ProductThumbnailComponent>;
+fdescribe('ProductThumbnailComponent', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestHostComponent, ProductThumbnailComponent],
-    });
+      declarations: [ProductThumbnailComponent, TestHostComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,22 +19,24 @@ describe('ProductThumbnailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    const element = fixture.debugElement.query(By.css('span'))
+  it('should output "test" in a span', () => {
+    const span = fixture.debugElement.query(By.css('span'))
       .nativeElement as HTMLElement;
-    expect(element.textContent).toEqual('test');
+
+    expect(span.textContent).toEqual('test');
   });
 });
 
 @Component({
-  template: `<app-product-thumbnail [product]="product"></app-product-thumbnail>`,
+  template:
+    '<app-product-thumbnail [product]="product"></app-product-thumbnail>',
 })
 class TestHostComponent {
   public product: Product = {
     description: 'test',
     name: 'test',
-    price: 1.22,
+    price: 12.33,
     productCategoryId: 1,
-    productId: 1,
+    productId: 2,
   };
 }

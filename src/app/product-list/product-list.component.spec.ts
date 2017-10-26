@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Rx';
 import { instance, mock, when } from 'ts-mockito';
 
@@ -12,38 +12,41 @@ import { ProductListComponent } from './product-list.component';
 
 describe('ProductListComponent', () => {
   let fixture: ComponentFixture<ProductListComponent>;
-  let mockProductsService: ProductsService;
+  let mockSearchResult: SearchResult<Product>;
   let productList: DebugElement[];
 
-  beforeEach(() => {
-    mockProductsService = mock(ProductsService);
-    const result: SearchResult<Product> = {
-      pageNumber: 1,
-      totalPages: 1,
-      totalRecords: 1,
-      results: [
-        {
-          description: 'test',
-          name: 'test',
-          price: 1.22,
-          productCategoryId: 1,
-          productId: 1,
-        },
-      ],
-    };
-    when(mockProductsService.getProducts()).thenCall(() =>
-      Observable.of(result)
-    );
-    TestBed.configureTestingModule({
-      declarations: [ProductListComponent, ProductThumbnailComponent],
-      providers: [
-        {
-          provide: ProductsService,
-          useValue: instance(mockProductsService),
-        },
-      ],
-    });
-  });
+  beforeEach(
+    async(() => {
+      mockSearchResult = {
+        pageNumber: 1,
+        totalPages: 1,
+        totalRecords: 1,
+        results: [
+          {
+            description: 'test1',
+            name: 'test1',
+            price: 12.44,
+            productCategoryId: 1,
+            productId: 1,
+          },
+        ],
+      };
+      const mockProductsService = mock(ProductsService);
+      when(mockProductsService.getProducts()).thenReturn(
+        Observable.of(mockSearchResult)
+      );
+
+      TestBed.configureTestingModule({
+        declarations: [ProductListComponent, ProductThumbnailComponent],
+        providers: [
+          {
+            provide: ProductsService,
+            useValue: instance(mockProductsService),
+          },
+        ],
+      });
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductListComponent);
