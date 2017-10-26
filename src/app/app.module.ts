@@ -31,7 +31,7 @@ const routes: Route[] = [
 
 class MyErrorHandler implements ErrorHandler {
   handleError(error: any): void {
-    console.log('yay!');
+    console.error(error);
   }
 }
 

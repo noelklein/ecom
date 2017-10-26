@@ -1,3 +1,5 @@
-<p>
-  category-filter works!
-</p>
+<ul>
+  <li *ngFor="let category of categories | async">
+    <label><input type="checkbox" (change)="filterChanged(category.productCategoryId)">{{category.name}}</label>
+  </li>
+</ul>

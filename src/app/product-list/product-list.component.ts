@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 
@@ -13,10 +14,20 @@ import { ProductsService } from '../services/products.service';
 })
 export class ProductListComponent {
   public products: Observable<Product[]>;
+  private categories: BehaviorSubject<number[]>;
 
   constructor(productsService: ProductsService) {
-    this.products = productsService
-      .getProducts()
-      .map(response => response.results);
+    this.categories = new BehaviorSubject([]);
+
+    this.products = this.categories
+      .switchMap(categories => {
+        return productsService
+          .getProducts(categories)
+          .map(response => response.results);
+      });
+  }
+
+  public changeSelectedCategories(categories: number[]) {
+    this.categories.next(categories);
   }
 }
