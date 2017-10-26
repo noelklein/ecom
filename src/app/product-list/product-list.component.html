@@ -1,5 +1,12 @@
-<ul class="list-unstyled">
-  <li *ngFor="let product of products">
-    <app-product-thumbnail [product]="product"></app-product-thumbnail>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-3">
+    <app-category-filter (filterChanged)="filterChanged(categoryIds)"></app-category-filter>
+  </div>
+  <div class="col-md-9">
+    <ul class="list-unstyled">
+      <li *ngFor="let product of products">
+        <app-product-thumbnail [product]="product"></app-product-thumbnail>
+      </li>
+    </ul>
+  </div>
+</div>

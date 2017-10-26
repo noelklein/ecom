@@ -10,9 +10,13 @@ import { SearchResult } from './result';
 export class ProductsService {
   constructor(private httpClient: HttpClient) {}
 
-  public getProducts(): Observable<SearchResult<Product>> {
+  public getProducts(
+    categories: number[] = [1, 2, 3, 4, 5, 6, 7]
+  ): Observable<SearchResult<Product>> {
     return this.httpClient.get<SearchResult<Product>>(
-      'http://localhost:3000/api/v1/products?sortColumn=name&pageSize=999&pageNumber=1&categories=1,2,3'
+      `http://localhost:3000/api/v1/products?sortColumn=name&pageSize=999&pageNumber=1&categories=${categories.join(
+        ','
+      )}`
     );
   }
 
