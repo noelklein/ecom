@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { Route, RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
 import { ProductsService } from './services/products.service';
+import { ProductDetailsPresentationComponent } from './product-details-presentation/product-details-presentation.component';
 
 const routes: Route[] = [
   {
@@ -28,6 +29,12 @@ const routes: Route[] = [
   },
 ];
 
+class MyErrorHandler implements ErrorHandler {
+  handleError(error: any): void {
+    console.log('yay!');
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +44,7 @@ const routes: Route[] = [
     HeaderComponent,
     ProductDetailsComponent,
     CheckoutComponent,
+    ProductDetailsPresentationComponent,
   ],
   imports: [
     FormsModule,
@@ -45,7 +53,13 @@ const routes: Route[] = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [ProductsService],
+  providers: [
+    ProductsService,
+    {
+      provide: ErrorHandler,
+      useClass: MyErrorHandler,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
