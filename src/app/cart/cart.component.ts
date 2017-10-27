@@ -1,6 +1,7 @@
 import { Product } from '../services/product';
 import { CartService } from '../services/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent {
 
-  public products: Product[];
+  public products: Observable<Product[]>;
 
   constructor(cartService: CartService) {
     this.products = cartService.getProducts();
