@@ -3,8 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { Route, RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
+import { cartReducer } from './cart.reducer';
 import { CartComponent } from './cart/cart.component';
 import { CategoryFilterComponent } from './category-filter/category-filter.component';
 import { CheckoutComponent } from './checkout/checkout.component';
@@ -59,6 +61,14 @@ export class MyErrorHandler implements ErrorHandler {
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    StoreModule.forRoot(
+      { cart: cartReducer },
+      {
+        initialState: {
+          cart: [],
+        },
+      }
+    ),
   ],
   providers: [
     ProductsService,

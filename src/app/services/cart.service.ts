@@ -1,28 +1,26 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
-
-import { Product } from './product';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+
+import { AddProductToCartAction } from '../actions';
+import { CartState } from '../cart.reducer';
+import { Product } from './product';
 
 @Injectable()
 export class CartService {
-  private products: BehaviorSubject<Product[]>;
-
-  constructor() {
-    this.products = new BehaviorSubject([]);
-  }
+  constructor(private store: Store<CartState>) {}
 
   public add(product: Product): void {
-    this.products.take(1).subscribe(products => {
-      this.products.next([...products, product]);
-    })
+    this.store.dispatch(new AddProductToCartAction(product));
   }
 
   public getProducts(): Observable<Product[]> {
-    return this.products;
+    return this.store.select(cartState => cartState.cart);
   }
 
   public getTotalAmount(): Observable<number> {
-    return this.products.map(products => products.reduce((total, product) => total + product.price, 0));
+    return this.store.select(cartState =>
+      cartState.cart.reduce((total, product) => total + product.price, 0)
+    );
   }
 }
